@@ -2,8 +2,9 @@ package com.mkrzyszczyk.shop.product.service;
 
 import com.mkrzyszczyk.shop.product.model.Product;
 import com.mkrzyszczyk.shop.product.repository.ProductRepository;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,8 +13,8 @@ public class ProductServiceImpl implements ProductService {
 
   private final ProductRepository productRepository;
 
-  public List<Product> getProducts() {
-    return productRepository.findAll();
+  public Page<Product> getProducts(Pageable pageable) {
+    return productRepository.findAll(pageable);
   }
 
 }

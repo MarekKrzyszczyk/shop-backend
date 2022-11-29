@@ -1,10 +1,11 @@
 package com.mkrzyszczyk.shop.product.service;
 
 import com.mkrzyszczyk.shop.product.model.Product;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
 
-  List<Product> getProducts();
+  Page<Product> getProducts(Pageable pageable);
 
 }
