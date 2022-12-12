@@ -3,6 +3,7 @@ package com.mkrzyszczyk.shop.admin.controller;
 import com.mkrzyszczyk.shop.admin.model.AdminProduct;
 import com.mkrzyszczyk.shop.admin.model.dto.AdminProductDto;
 import com.mkrzyszczyk.shop.admin.service.AdminProductService;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +33,7 @@ public class AdminProductController {
   }
 
   @PostMapping("/admin/products")
-  public ResponseEntity<AdminProduct> createProduct(@RequestBody AdminProductDto adminProductDto) {
+  public ResponseEntity<AdminProduct> createProduct(@RequestBody @Valid AdminProductDto adminProductDto) {
     return new ResponseEntity<>(adminProductService.createProduct(adminProductDto), HttpStatus.CREATED);
   }
 
