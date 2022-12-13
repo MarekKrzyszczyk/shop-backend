@@ -35,6 +35,11 @@ public class AdminProductServiceImpl implements AdminProductService {
     return adminProductRepository.save(mapAdminProduct(adminProductDto, id));
   }
 
+  @Override
+  public void deleteProduct(Long id) {
+    adminProductRepository.deleteById(id);
+  }
+
   private AdminProduct mapAdminProduct(AdminProductDto adminProductDto, Long id) {
     return AdminProduct.builder()
         .id(id)

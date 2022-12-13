@@ -14,4 +14,6 @@ public interface AdminProductService {
   AdminProduct createProduct(AdminProductDto adminProductDto);
 
   AdminProduct updateProduct(AdminProductDto adminProductDto, Long id);
+
+  void deleteProduct(Long id);
 }
