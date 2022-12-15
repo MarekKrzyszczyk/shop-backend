@@ -20,4 +20,5 @@ public class AdminProductDto {
   @Min(value = 0, message = "Price must be equal or greater than 0")
   private BigDecimal price;
   private AdminProductCurrency currency;
+  private String image;
 }
