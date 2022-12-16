@@ -8,4 +8,5 @@ public interface ProductService {
 
   Page<Product> getProducts(Pageable pageable);
 
+  Product getProductBySlug(String slug);
 }

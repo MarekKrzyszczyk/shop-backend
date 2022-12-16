@@ -1,5 +1,6 @@
 package com.mkrzyszczyk.shop.admin.service;
 
+import com.github.slugify.Slugify;
 import com.mkrzyszczyk.shop.admin.model.AdminProduct;
 import com.mkrzyszczyk.shop.admin.model.dto.AdminProductDto;
 import com.mkrzyszczyk.shop.admin.repository.AdminProductRepository;
@@ -49,6 +50,13 @@ public class AdminProductServiceImpl implements AdminProductService {
         .price(adminProductDto.getPrice())
         .currency(adminProductDto.getCurrency())
         .image(adminProductDto.getImage())
+        .slug(slugify(adminProductDto.getSlug()))
         .build();
+  }
+
+  private String slugify(String slug) {
+    Slugify slugify = new Slugify();
+    return slugify.withCustomReplacement("_", "-")
+        .slugify(slug);
   }
 }

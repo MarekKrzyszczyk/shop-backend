@@ -21,4 +21,6 @@ public class AdminProductDto {
   private BigDecimal price;
   private AdminProductCurrency currency;
   private String image;
+  @NotBlank(message = "slug cannot be blank")
+  private String slug;
 }

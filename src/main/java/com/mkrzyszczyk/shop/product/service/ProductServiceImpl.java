@@ -17,4 +17,9 @@ public class ProductServiceImpl implements ProductService {
     return productRepository.findAll(pageable);
   }
 
+  @Override
+  public Product getProductBySlug(String slug) {
+    return productRepository.findProductBySlug(slug).orElseThrow();
+  }
+
 }
