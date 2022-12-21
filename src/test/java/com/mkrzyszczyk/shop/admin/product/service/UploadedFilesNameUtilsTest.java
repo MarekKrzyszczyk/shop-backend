@@ -1,8 +1,7 @@
-package com.mkrzyszczyk.shop.admin.service;
+package com.mkrzyszczyk.shop.admin.product.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.mkrzyszczyk.shop.admin.product.service.UploadedFilesNameUtils;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 

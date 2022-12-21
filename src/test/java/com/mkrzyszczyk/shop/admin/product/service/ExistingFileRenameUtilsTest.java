@@ -1,8 +1,7 @@
-package com.mkrzyszczyk.shop.admin.service;
+package com.mkrzyszczyk.shop.admin.product.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.mkrzyszczyk.shop.admin.product.service.ExistingFileRenameUtils;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import lombok.SneakyThrows;
