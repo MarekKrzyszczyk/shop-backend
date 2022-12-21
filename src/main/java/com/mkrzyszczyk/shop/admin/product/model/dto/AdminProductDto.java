@@ -12,8 +12,8 @@ public class AdminProductDto {
 
   @NotBlank(message = "name cannot be blank")
   private String name;
-  @NotBlank(message = "name cannot be blank")
-  private String category;
+  @NotNull
+  private Long categoryId;
   @NotBlank(message = "name cannot be blank")
   private String description;
   @NotNull

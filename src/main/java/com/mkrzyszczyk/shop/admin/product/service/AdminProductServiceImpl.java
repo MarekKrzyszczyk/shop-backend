@@ -47,7 +47,7 @@ public class AdminProductServiceImpl implements AdminProductService {
         .name(adminProductDto.getName())
         .description(adminProductDto.getDescription())
         .fullDescription(adminProductDto.getFullDescription())
-        .category(adminProductDto.getCategory())
+        .categoryId(adminProductDto.getCategoryId())
         .price(adminProductDto.getPrice())
         .currency(adminProductDto.getCurrency())
         .image(adminProductDto.getImage())
