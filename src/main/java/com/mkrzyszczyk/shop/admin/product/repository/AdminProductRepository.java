@@ -1,6 +1,6 @@
-package com.mkrzyszczyk.shop.admin.repository;
+package com.mkrzyszczyk.shop.admin.product.repository;
 
-import com.mkrzyszczyk.shop.admin.model.AdminProduct;
+import com.mkrzyszczyk.shop.admin.product.model.AdminProduct;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

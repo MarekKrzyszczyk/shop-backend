@@ -1,4 +1,4 @@
-package com.mkrzyszczyk.shop.admin.service;
+package com.mkrzyszczyk.shop.admin.product.service;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

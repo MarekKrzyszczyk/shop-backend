@@ -1,6 +1,7 @@
-package com.mkrzyszczyk.shop.admin.model;
+package com.mkrzyszczyk.shop.admin.product.model;
 
 import java.math.BigDecimal;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -32,4 +33,6 @@ public class AdminProduct {
   private AdminProductCurrency currency;
   private String image;
   private String slug;
+  @Column(name = "full_description")
+  private String fullDescription;
 }

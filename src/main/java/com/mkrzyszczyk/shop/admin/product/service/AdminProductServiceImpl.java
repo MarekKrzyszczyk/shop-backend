@@ -1,9 +1,9 @@
-package com.mkrzyszczyk.shop.admin.service;
+package com.mkrzyszczyk.shop.admin.product.service;
 
 import com.github.slugify.Slugify;
-import com.mkrzyszczyk.shop.admin.model.AdminProduct;
-import com.mkrzyszczyk.shop.admin.model.dto.AdminProductDto;
-import com.mkrzyszczyk.shop.admin.repository.AdminProductRepository;
+import com.mkrzyszczyk.shop.admin.product.model.AdminProduct;
+import com.mkrzyszczyk.shop.admin.product.model.dto.AdminProductDto;
+import com.mkrzyszczyk.shop.admin.product.repository.AdminProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,6 +46,7 @@ public class AdminProductServiceImpl implements AdminProductService {
         .id(id)
         .name(adminProductDto.getName())
         .description(adminProductDto.getDescription())
+        .fullDescription(adminProductDto.getFullDescription())
         .category(adminProductDto.getCategory())
         .price(adminProductDto.getPrice())
         .currency(adminProductDto.getCurrency())

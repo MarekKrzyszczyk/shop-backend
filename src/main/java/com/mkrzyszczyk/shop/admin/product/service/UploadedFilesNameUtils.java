@@ -1,4 +1,4 @@
-package com.mkrzyszczyk.shop.admin.service;
+package com.mkrzyszczyk.shop.admin.product.service;
 
 import com.github.slugify.Slugify;
 import lombok.AccessLevel;

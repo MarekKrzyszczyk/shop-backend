@@ -1,4 +1,4 @@
-package com.mkrzyszczyk.shop.admin.service;
+package com.mkrzyszczyk.shop.admin.product.service;
 
 import java.io.IOException;
 import java.io.InputStream;

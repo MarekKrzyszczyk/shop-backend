@@ -1,7 +1,7 @@
-package com.mkrzyszczyk.shop.admin.service;
+package com.mkrzyszczyk.shop.admin.product.service;
 
-import com.mkrzyszczyk.shop.admin.model.AdminProduct;
-import com.mkrzyszczyk.shop.admin.model.dto.AdminProductDto;
+import com.mkrzyszczyk.shop.admin.product.model.AdminProduct;
+import com.mkrzyszczyk.shop.admin.product.model.dto.AdminProductDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

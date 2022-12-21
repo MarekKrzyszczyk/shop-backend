@@ -1,19 +1,16 @@
-package com.mkrzyszczyk.shop.admin.controller;
+package com.mkrzyszczyk.shop.admin.product.controller;
 
-import com.mkrzyszczyk.shop.admin.model.AdminProduct;
-import com.mkrzyszczyk.shop.admin.model.dto.AdminProductDto;
-import com.mkrzyszczyk.shop.admin.model.dto.UploadResponse;
-import com.mkrzyszczyk.shop.admin.service.AdminProductImageService;
-import com.mkrzyszczyk.shop.admin.service.AdminProductService;
+import com.mkrzyszczyk.shop.admin.product.model.AdminProduct;
+import com.mkrzyszczyk.shop.admin.product.model.dto.AdminProductDto;
+import com.mkrzyszczyk.shop.admin.product.model.dto.UploadResponse;
+import com.mkrzyszczyk.shop.admin.product.service.AdminProductImageService;
+import com.mkrzyszczyk.shop.admin.product.service.AdminProductService;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
