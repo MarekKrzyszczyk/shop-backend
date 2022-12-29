@@ -1,6 +1,7 @@
 package com.mkrzyszczyk.shop.product.controller;
 
 import com.mkrzyszczyk.shop.product.model.Product;
+import com.mkrzyszczyk.shop.product.model.dto.ProductListDto;
 import com.mkrzyszczyk.shop.product.service.ProductService;
 import javax.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class ProductController {
   private final ProductService productService;
 
   @GetMapping("/products")
-  public ResponseEntity<Page<Product>> getProducts(Pageable pageable) {
+  public ResponseEntity<Page<ProductListDto>> getProducts(Pageable pageable) {
     return ResponseEntity.ok(productService.getProducts(pageable));
   }
 

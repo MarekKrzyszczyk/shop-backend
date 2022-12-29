@@ -4,10 +4,13 @@ import com.mkrzyszczyk.shop.category.model.Category;
 import com.mkrzyszczyk.shop.category.model.dto.CategoryProductsDto;
 import com.mkrzyszczyk.shop.category.repository.CategoryRepository;
 import com.mkrzyszczyk.shop.product.model.Product;
+import com.mkrzyszczyk.shop.product.model.dto.ProductListDto;
 import com.mkrzyszczyk.shop.product.repository.ProductRepository;
+import com.mkrzyszczyk.shop.product.service.ProductService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
 
   private final CategoryRepository categoryRepository;
   private final ProductRepository productRepository;
+  private final ProductService productService;
 
   @Override
   public List<Category> getCategories() {
@@ -29,6 +33,11 @@ public class CategoryServiceImpl implements CategoryService {
   public CategoryProductsDto getCategoryWithProducts(String slug, Pageable pageable) {
     Category category = categoryRepository.findBySlug(slug);
     Page<Product> products = productRepository.findBycategoryId(category.getId(), pageable);
-    return new CategoryProductsDto(category, products);
+    List<ProductListDto> productsListDto = products.getContent()
+        .stream()
+        .map(productService::mapToProductListDto)
+        .toList();
+    return new CategoryProductsDto(category, new PageImpl<>(productsListDto, pageable,
+        products.getTotalElements()));
   }
 }
