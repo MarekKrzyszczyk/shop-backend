@@ -1,4 +1,4 @@
-package com.mkrzyszczyk.shop.admin.product.service;
+package com.mkrzyszczyk.shop.admin.common.utils;
 
 import com.github.slugify.Slugify;
 import lombok.AccessLevel;
@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-class UploadedFilesNameUtils {
+public class SlugifyUtils {
 
   public static String slugifyFileName(String filename) {
     String baseName = FilenameUtils.getBaseName(filename);
@@ -15,5 +15,12 @@ class UploadedFilesNameUtils {
         .withCustomReplacement("_", "-")
         .slugify(baseName);
     return changedName + "." + FilenameUtils.getExtension(filename);
+  }
+
+
+  public static String slugify(String slug) {
+    Slugify slugify = new Slugify();
+    return slugify.withCustomReplacement("_", "-")
+        .slugify(slug);
   }
 }

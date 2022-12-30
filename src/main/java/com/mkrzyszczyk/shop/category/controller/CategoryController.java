@@ -1,7 +1,7 @@
 package com.mkrzyszczyk.shop.category.controller;
 
-import com.mkrzyszczyk.shop.category.model.Category;
-import com.mkrzyszczyk.shop.category.model.dto.CategoryProductsDto;
+import com.mkrzyszczyk.shop.common.model.Category;
+import com.mkrzyszczyk.shop.category.dto.CategoryProductsDto;
 import com.mkrzyszczyk.shop.category.service.CategoryService;
 import java.util.List;
 import javax.validation.constraints.Pattern;

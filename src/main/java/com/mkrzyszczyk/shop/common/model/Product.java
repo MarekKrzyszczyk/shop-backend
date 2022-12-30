@@ -1,6 +1,5 @@
-package com.mkrzyszczyk.shop.product.model;
+package com.mkrzyszczyk.shop.common.model;
 
-import com.mkrzyszczyk.shop.review.model.Review;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Entity;

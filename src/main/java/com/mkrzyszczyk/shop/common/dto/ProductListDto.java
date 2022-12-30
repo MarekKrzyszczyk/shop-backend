@@ -1,4 +1,4 @@
-package com.mkrzyszczyk.shop.product.model.dto;
+package com.mkrzyszczyk.shop.common.dto;
 
 import java.math.BigDecimal;
 import lombok.Builder;

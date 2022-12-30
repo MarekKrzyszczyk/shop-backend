@@ -1,6 +1,6 @@
-package com.mkrzyszczyk.shop.product.repository;
+package com.mkrzyszczyk.shop.common.repository;
 
-import com.mkrzyszczyk.shop.product.model.Product;
+import com.mkrzyszczyk.shop.common.model.Product;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,5 +12,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
   Optional<Product> findProductBySlug(String slug);
 
-  Page<Product> findBycategoryId(Long id, Pageable pageable);
+  Page<Product> findByCategoryId(Long id, Pageable pageable);
 }

@@ -1,4 +1,4 @@
-package com.mkrzyszczyk.shop.admin.product.service;
+package com.mkrzyszczyk.shop.admin.common.utils;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-class ExistingFileRenameUtils {
+public class ExistingFileRenameUtils {
 
   public static String renameIfExist(Path uploadDir, String filename) {
     if (Files.exists(uploadDir.resolve(filename))) {

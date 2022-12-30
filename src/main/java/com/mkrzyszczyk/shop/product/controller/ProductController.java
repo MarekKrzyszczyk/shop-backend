@@ -1,7 +1,7 @@
 package com.mkrzyszczyk.shop.product.controller;
 
-import com.mkrzyszczyk.shop.product.model.Product;
-import com.mkrzyszczyk.shop.product.model.dto.ProductListDto;
+import com.mkrzyszczyk.shop.common.model.Product;
+import com.mkrzyszczyk.shop.common.dto.ProductListDto;
 import com.mkrzyszczyk.shop.product.service.ProductService;
 import javax.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;

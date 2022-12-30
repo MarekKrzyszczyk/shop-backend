@@ -6,6 +6,7 @@ import com.github.slugify.Slugify;
 import com.mkrzyszczyk.shop.admin.category.model.AdminCategory;
 import com.mkrzyszczyk.shop.admin.category.model.dto.AdminCategoryDto;
 import com.mkrzyszczyk.shop.admin.category.repository.AdminCategoryRepository;
+import com.mkrzyszczyk.shop.admin.common.utils.SlugifyUtils;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,13 +47,7 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
         .id(id)
         .name(dto.getName())
         .description(dto.getDescription())
-        .slug(slugifyCategoryName(dto.getSlug()))
+        .slug(SlugifyUtils.slugify(dto.getSlug()))
         .build();
-  }
-
-  private String slugifyCategoryName(String slug) {
-    Slugify slugify = new Slugify();
-    return slugify.withCustomReplacement("_", "-")
-        .slugify(slug);
   }
 }

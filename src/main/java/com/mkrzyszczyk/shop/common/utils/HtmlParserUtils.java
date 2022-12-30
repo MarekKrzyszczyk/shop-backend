@@ -1,4 +1,4 @@
-package com.mkrzyszczyk.shop.review.service;
+package com.mkrzyszczyk.shop.common.utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

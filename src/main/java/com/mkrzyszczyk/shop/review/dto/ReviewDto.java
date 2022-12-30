@@ -1,4 +1,4 @@
-package com.mkrzyszczyk.shop.review.model.dto;
+package com.mkrzyszczyk.shop.review.dto;
 
 import org.hibernate.validator.constraints.Length;
 

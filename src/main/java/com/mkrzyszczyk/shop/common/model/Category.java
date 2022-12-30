@@ -1,4 +1,4 @@
-package com.mkrzyszczyk.shop.category.model;
+package com.mkrzyszczyk.shop.common.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

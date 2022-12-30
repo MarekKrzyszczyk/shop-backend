@@ -1,14 +1,13 @@
 package com.mkrzyszczyk.shop.category.service;
 
-import com.mkrzyszczyk.shop.category.model.Category;
-import com.mkrzyszczyk.shop.category.model.dto.CategoryProductsDto;
+import com.mkrzyszczyk.shop.category.dto.CategoryProductsDto;
 import com.mkrzyszczyk.shop.category.repository.CategoryRepository;
-import com.mkrzyszczyk.shop.product.model.Product;
-import com.mkrzyszczyk.shop.product.model.dto.ProductListDto;
-import com.mkrzyszczyk.shop.product.repository.ProductRepository;
-import com.mkrzyszczyk.shop.product.service.ProductService;
+import com.mkrzyszczyk.shop.common.dto.ProductListDto;
+import com.mkrzyszczyk.shop.common.mapping.ProductListMapping;
+import com.mkrzyszczyk.shop.common.model.Category;
+import com.mkrzyszczyk.shop.common.model.Product;
+import com.mkrzyszczyk.shop.common.repository.ProductRepository;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -16,12 +15,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
   private final CategoryRepository categoryRepository;
   private final ProductRepository productRepository;
-  private final ProductService productService;
+  private final ProductListMapping productListMapping;
+
+  public CategoryServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepository) {
+    this.categoryRepository = categoryRepository;
+    this.productRepository = productRepository;
+    this.productListMapping = new ProductListMapping();
+  }
 
   @Override
   public List<Category> getCategories() {
@@ -32,10 +36,10 @@ public class CategoryServiceImpl implements CategoryService {
   @Transactional(readOnly = true)
   public CategoryProductsDto getCategoryWithProducts(String slug, Pageable pageable) {
     Category category = categoryRepository.findBySlug(slug);
-    Page<Product> products = productRepository.findBycategoryId(category.getId(), pageable);
+    Page<Product> products = productRepository.findByCategoryId(category.getId(), pageable);
     List<ProductListDto> productsListDto = products.getContent()
         .stream()
-        .map(productService::mapToProductListDto)
+        .map(productListMapping::mapToProductListDto)
         .toList();
     return new CategoryProductsDto(category, new PageImpl<>(productsListDto, pageable,
         products.getTotalElements()));

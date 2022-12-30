@@ -1,5 +1,7 @@
 package com.mkrzyszczyk.shop.admin.product.service;
 
+import com.mkrzyszczyk.shop.admin.common.utils.ExistingFileRenameUtils;
+import com.mkrzyszczyk.shop.admin.common.utils.SlugifyUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,7 +20,7 @@ public class AdminProductImageService {
   private String uploadDir;
 
   public String uploadImage(String filename, InputStream inputStream) {
-    String newFileName = UploadedFilesNameUtils.slugifyFileName(filename);
+    String newFileName = SlugifyUtils.slugifyFileName(filename);
     newFileName = ExistingFileRenameUtils.renameIfExist(Path.of(uploadDir), newFileName);
     Path filePath = Paths.get(uploadDir).resolve(newFileName);
 

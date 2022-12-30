@@ -1,7 +1,8 @@
 package com.mkrzyszczyk.shop.review.service;
 
-import com.mkrzyszczyk.shop.review.model.Review;
-import com.mkrzyszczyk.shop.review.model.dto.ReviewDto;
+import com.mkrzyszczyk.shop.common.model.Review;
+import com.mkrzyszczyk.shop.common.utils.HtmlParserUtils;
+import com.mkrzyszczyk.shop.review.dto.ReviewDto;
 import com.mkrzyszczyk.shop.review.repository.ReviewRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
