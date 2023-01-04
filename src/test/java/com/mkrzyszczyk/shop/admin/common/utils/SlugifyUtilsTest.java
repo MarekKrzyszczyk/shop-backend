@@ -2,7 +2,6 @@ package com.mkrzyszczyk.shop.admin.common.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.mkrzyszczyk.shop.admin.common.utils.SlugifyUtils;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 

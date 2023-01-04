@@ -2,6 +2,7 @@ package com.mkrzyszczyk.shop.product.controller;
 
 import com.mkrzyszczyk.shop.common.model.Product;
 import com.mkrzyszczyk.shop.common.dto.ProductListDto;
+import com.mkrzyszczyk.shop.product.dto.ProductDto;
 import com.mkrzyszczyk.shop.product.service.ProductService;
 import javax.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class ProductController {
   }
 
   @GetMapping("/products/{slug}")
-  public ResponseEntity<Product> getProductBySlug(@PathVariable @Pattern(regexp = "[a-z0-9\\-]+")
+  public ResponseEntity<ProductDto> getProductBySlug(@PathVariable @Pattern(regexp = "[a-z0-9\\-]+")
                                                                 @Length(max = 255) String slug) {
     return ResponseEntity.ok(productService.getProductBySlug(slug));
   }

@@ -1,6 +1,5 @@
 package com.mkrzyszczyk.shop.admin.product.service;
 
-import com.github.slugify.Slugify;
 import com.mkrzyszczyk.shop.admin.common.utils.SlugifyUtils;
 import com.mkrzyszczyk.shop.admin.product.model.AdminProduct;
 import com.mkrzyszczyk.shop.admin.product.model.dto.AdminProductDto;
