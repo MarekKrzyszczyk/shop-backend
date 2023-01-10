@@ -4,8 +4,10 @@ import com.mkrzyszczyk.shop.cart.controller.dto.CartSummaryDto;
 import com.mkrzyszczyk.shop.cart.model.Cart;
 import com.mkrzyszczyk.shop.cart.model.dto.CartProductDto;
 import com.mkrzyszczyk.shop.cart.service.CartService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,4 +32,9 @@ public class CartController {
     return ResponseEntity.ok(cartService.addProductToCart(id, cartProductDto));
   }
 
+  @PutMapping("/{id}/update")
+  public ResponseEntity<CartSummaryDto> updateCart(@PathVariable Long id,
+      @RequestBody List<CartProductDto> cartProductsDto) {
+    return ResponseEntity.ok(cartService.updateCart(id, cartProductsDto));
+  }
 }

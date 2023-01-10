@@ -60,6 +60,6 @@ public class CartMapper {
     return items.stream()
         .map(this::calculateLineValue)
         .reduce(BigDecimal::add)
-        .orElseThrow();
+        .orElse(BigDecimal.ZERO);
   }
 }

@@ -9,6 +9,7 @@ import com.mkrzyszczyk.shop.cart.repository.CartRepository;
 import com.mkrzyszczyk.shop.common.model.Product;
 import com.mkrzyszczyk.shop.common.repository.ProductRepository;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,20 @@ public class CartServiceImpl implements CartService {
             .cartId(cart.getId())
         .build());
 
+    return cartMapper.mapToCartSummary(cart);
+  }
+
+  @Override
+  @Transactional
+  public CartSummaryDto updateCart(Long id, List<CartProductDto> cartProductsDto)
+  {
+    Cart cart = cartRepository.findById(id).orElseThrow();
+    cart.getItems().forEach(item -> {
+      cartProductsDto.stream()
+          .filter(cartProductDto -> item.getProduct().getId().equals(cartProductDto.productId()))
+          .findFirst()
+          .ifPresent(cartProductDto -> item.setQuantity((cartProductDto.quantity())));
+    });
     return cartMapper.mapToCartSummary(cart);
   }
 
