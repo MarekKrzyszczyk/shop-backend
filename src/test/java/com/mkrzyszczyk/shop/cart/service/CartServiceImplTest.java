@@ -6,10 +6,10 @@ import static org.mockito.Mockito.when;
 
 import com.mkrzyszczyk.shop.cart.controller.dto.CartSummaryDto;
 import com.mkrzyszczyk.shop.cart.controller.mapper.CartMapper;
-import com.mkrzyszczyk.shop.cart.model.Cart;
 import com.mkrzyszczyk.shop.cart.model.dto.CartProductDto;
-import com.mkrzyszczyk.shop.cart.repository.CartRepository;
+import com.mkrzyszczyk.shop.common.model.Cart;
 import com.mkrzyszczyk.shop.common.model.Product;
+import com.mkrzyszczyk.shop.common.repository.CartRepository;
 import com.mkrzyszczyk.shop.common.repository.ProductRepository;
 import java.math.BigDecimal;
 import java.util.Optional;

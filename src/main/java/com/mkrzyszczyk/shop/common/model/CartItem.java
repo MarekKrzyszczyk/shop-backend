@@ -1,6 +1,5 @@
-package com.mkrzyszczyk.shop.cart.model;
+package com.mkrzyszczyk.shop.common.model;
 
-import com.mkrzyszczyk.shop.common.model.Product;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

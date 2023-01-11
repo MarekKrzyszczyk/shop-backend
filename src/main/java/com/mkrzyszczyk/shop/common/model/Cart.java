@@ -1,4 +1,4 @@
-package com.mkrzyszczyk.shop.cart.model;
+package com.mkrzyszczyk.shop.common.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

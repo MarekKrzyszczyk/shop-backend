@@ -2,11 +2,11 @@ package com.mkrzyszczyk.shop.cart.service;
 
 import com.mkrzyszczyk.shop.cart.controller.dto.CartSummaryDto;
 import com.mkrzyszczyk.shop.cart.controller.mapper.CartMapper;
-import com.mkrzyszczyk.shop.cart.model.Cart;
-import com.mkrzyszczyk.shop.cart.model.CartItem;
 import com.mkrzyszczyk.shop.cart.model.dto.CartProductDto;
-import com.mkrzyszczyk.shop.cart.repository.CartRepository;
+import com.mkrzyszczyk.shop.common.model.Cart;
+import com.mkrzyszczyk.shop.common.model.CartItem;
 import com.mkrzyszczyk.shop.common.model.Product;
+import com.mkrzyszczyk.shop.common.repository.CartRepository;
 import com.mkrzyszczyk.shop.common.repository.ProductRepository;
 import java.time.LocalDateTime;
 import java.util.List;

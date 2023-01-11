@@ -1,8 +1,8 @@
 package com.mkrzyszczyk.shop.cart.service;
 
-import com.mkrzyszczyk.shop.cart.model.Cart;
-import com.mkrzyszczyk.shop.cart.repository.CartItemRepository;
-import com.mkrzyszczyk.shop.cart.repository.CartRepository;
+import com.mkrzyszczyk.shop.common.model.Cart;
+import com.mkrzyszczyk.shop.common.repository.CartItemRepository;
+import com.mkrzyszczyk.shop.common.repository.CartRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
