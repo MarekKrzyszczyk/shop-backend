@@ -14,4 +14,9 @@ public class CartItemServiceImpl implements CartItemService {
   public void deleteCartItem(Long id) {
     cartItemRepository.deleteById(id);
   }
+
+  @Override
+  public Long countItemsInCart(Long id) {
+    return cartItemRepository.countByCartId(id);
+  }
 }
