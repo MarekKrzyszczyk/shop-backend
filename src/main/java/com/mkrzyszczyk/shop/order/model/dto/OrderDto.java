@@ -24,4 +24,5 @@ public class OrderDto {
   private String phone;
   @NotNull
   private Long cartId;
+  private Long shipmentId;
 }
