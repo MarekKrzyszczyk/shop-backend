@@ -4,6 +4,7 @@ import com.mkrzyszczyk.shop.order.model.dto.InitOrder;
 import com.mkrzyszczyk.shop.order.model.dto.OrderDto;
 import com.mkrzyszczyk.shop.order.model.dto.OrderSummary;
 import com.mkrzyszczyk.shop.order.service.OrderService;
+import com.mkrzyszczyk.shop.order.service.PaymentService;
 import com.mkrzyszczyk.shop.order.service.ShipmentService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class OrderController {
 
   private final OrderService orderService;
   private final ShipmentService shipmentService;
+  private final PaymentService paymentService;
 
   @PostMapping
   public ResponseEntity<OrderSummary> placeOrder(@RequestBody @Valid OrderDto orderDto) {
@@ -30,7 +32,10 @@ public class OrderController {
 
   @GetMapping("/initData")
   public ResponseEntity<InitOrder> initData() {
-    return ResponseEntity.ok(shipmentService.getShipments());
+    InitOrder initOrder = InitOrder.builder()
+            .shipments(shipmentService.getShipments())
+            .payments(paymentService.getPayments())
+            .build();
+    return ResponseEntity.ok(initOrder);
   }
-
 }

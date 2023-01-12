@@ -1,8 +1,10 @@
 package com.mkrzyszczyk.shop.order.service;
 
-import com.mkrzyszczyk.shop.order.model.dto.InitOrder;
+import com.mkrzyszczyk.shop.order.model.Shipment;
+
+import java.util.List;
 
 public interface ShipmentService {
 
-  InitOrder getShipments();
+  List<Shipment> getShipments();
 }
