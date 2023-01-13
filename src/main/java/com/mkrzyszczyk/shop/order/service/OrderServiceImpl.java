@@ -1,5 +1,6 @@
 package com.mkrzyszczyk.shop.order.service;
 
+import com.mkrzyszczyk.shop.common.mail.EmailSimpleService;
 import com.mkrzyszczyk.shop.common.model.Cart;
 import com.mkrzyszczyk.shop.common.model.CartItem;
 import com.mkrzyszczyk.shop.common.repository.CartItemRepository;
@@ -15,6 +16,7 @@ import com.mkrzyszczyk.shop.order.repository.OrderRowRepository;
 import com.mkrzyszczyk.shop.order.repository.ShipmentRepository;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,7 @@ public class OrderServiceImpl implements OrderService {
   private final CartRepository cartRepository;
   private final CartItemRepository cartItemRepository;
   private final ShipmentRepository shipmentRepository;
+  private final EmailSimpleService emailSimpleService;
 
   @Override
   @Transactional
@@ -51,6 +54,7 @@ public class OrderServiceImpl implements OrderService {
     saveOrderRows(cart, newOrder.getId(), shipment);
     cartItemRepository.deleteByCartId(cart.getId());
     cartRepository.deleteByCartId(cart.getId());
+    emailSimpleService.send(order.getEmail(), "Your order has been placed", createEmailMessage(order));
 
     return OrderSummary.builder()
         .id(newOrder.getId())
@@ -58,6 +62,16 @@ public class OrderServiceImpl implements OrderService {
         .status(newOrder.getOrderStatus().toString())
         .grossValue(newOrder.getGrossValue())
         .build();
+  }
+
+  private String createEmailMessage(Order order) {
+    return "Your order nr: " + order.getId() +
+        "\nPlacement date: " + order.getPlacementDate().format(DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm")) +
+        "\nAmount: " + order.getGrossValue() + " PLN" +
+        "\n\n" +
+        "\nPayment: " + order.getPayment().getName() + (order.getPayment().getNote() != null ?
+        "\n" + order.getPayment().getNote() : "") +
+        "\n\nThank you for your order!";
   }
 
   private BigDecimal calculateGrossValue(List<CartItem> items, Shipment shipment) {
