@@ -3,9 +3,12 @@ package com.mkrzyszczyk.shop.order.model.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class OrderDto {
   @NotBlank
   private String firstname;
