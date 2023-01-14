@@ -1,6 +1,7 @@
 package com.mkrzyszczyk.shop.order.service;
 
-import com.mkrzyszczyk.shop.common.mail.EmailSimpleService;
+import com.mkrzyszczyk.shop.common.mail.EmailClientService;
+import com.mkrzyszczyk.shop.common.mail.EmailSender;
 import com.mkrzyszczyk.shop.common.model.Cart;
 import com.mkrzyszczyk.shop.common.model.CartItem;
 import com.mkrzyszczyk.shop.common.repository.CartItemRepository;
@@ -19,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
     private final CartItemRepository cartItemRepository;
     private final ShipmentRepository shipmentRepository;
     private final PaymentRepository paymentRepository;
-  private final EmailSimpleService emailSimpleService;
+    private final EmailClientService emailClientService;
 
     @Override
     @Transactional
@@ -57,7 +59,7 @@ public class OrderServiceImpl implements OrderService {
         saveOrderRows(cart, newOrder.getId(), shipment);
         cartItemRepository.deleteByCartId(cart.getId());
         cartRepository.deleteByCartId(cart.getId());
-
+        emailClientService.getInstance().send(order.getEmail(), "Your order has been placed", createEmailMessage(order));
         return OrderSummary.builder()
                 .id(newOrder.getId())
                 .placementDate(newOrder.getPlacementDate())
@@ -67,6 +69,16 @@ public class OrderServiceImpl implements OrderService {
                 .build();
     }
 
+    private String createEmailMessage(Order order) {
+        return "Your order nr: " + order.getId() +
+                "\nPlacement date: " + order.getPlacementDate().format(DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm")) +
+                "\nAmount: " + order.getGrossValue() + " PLN" +
+                "\n\n" +
+                "\nPayment: " + order.getPayment().getName() + (order.getPayment().getNote() != null ?
+                "\n" + order.getPayment().getNote() : "") +
+                "\n\nThank you for your order!";
+    }
+
     private BigDecimal calculateGrossValue(List<CartItem> items, Shipment shipment) {
         return items.stream()
                 .map(cartItem -> cartItem.getProduct().getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity())))
@@ -74,15 +86,6 @@ public class OrderServiceImpl implements OrderService {
                 .orElse(BigDecimal.ZERO)
                 .add(shipment.getPrice());
     }
-  private String createEmailMessage(Order order) {
-    return "Your order nr: " + order.getId() +
-        "\nPlacement date: " + order.getPlacementDate().format(DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm")) +
-        "\nAmount: " + order.getGrossValue() + " PLN" +
-        "\n\n" +
-        "\nPayment: " + order.getPayment().getName() + (order.getPayment().getNote() != null ?
-        "\n" + order.getPayment().getNote() : "") +
-        "\n\nThank you for your order!";
-  }
 
     private void saveOrderRows(Cart cart, Long orderId, Shipment shipment) {
         saveProductsRows(cart, orderId);
