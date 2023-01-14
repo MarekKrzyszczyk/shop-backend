@@ -26,7 +26,7 @@ public class AdminOrderMapper {
         return AdminOrderDto.builder()
                 .id(adminOrder.getId())
                 .orderStatus(adminOrder.getOrderStatus())
-                .placeDate(adminOrder.getPlaceDate())
+                .placementDate(adminOrder.getPlacementDate())
                 .grossValue(adminOrder.getGrossValue())
                 .build();
     }

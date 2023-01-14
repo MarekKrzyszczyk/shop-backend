@@ -1,6 +1,7 @@
 package com.mkrzyszczyk.shop.admin.order.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -10,12 +11,13 @@ import java.util.List;
 @Entity
 @Table(name = "`order`")
 @Getter
+@Setter
 public class AdminOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime placeDate;
+    private LocalDateTime placementDate;
     @Enumerated(EnumType.STRING)
     private AdminOrderStatus orderStatus;
     @OneToMany

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class AdminOrderDto {
 
     private Long id;
-    private LocalDateTime placeDate;
+    private LocalDateTime placementDate;
     private AdminOrderStatus orderStatus;
     private BigDecimal grossValue;
 }
