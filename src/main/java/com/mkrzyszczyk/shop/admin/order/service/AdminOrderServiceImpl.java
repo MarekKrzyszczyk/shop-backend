@@ -1,7 +1,9 @@
 package com.mkrzyszczyk.shop.admin.order.service;
 
 import com.mkrzyszczyk.shop.admin.order.model.AdminOrder;
+import com.mkrzyszczyk.shop.admin.order.model.AdminOrderLog;
 import com.mkrzyszczyk.shop.admin.order.model.AdminOrderStatus;
+import com.mkrzyszczyk.shop.admin.order.repository.AdminOrderLogRepository;
 import com.mkrzyszczyk.shop.admin.order.repository.AdminOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Service
@@ -18,6 +21,8 @@ import java.util.Map;
 public class AdminOrderServiceImpl implements AdminOrderService {
 
     private final AdminOrderRepository orderRepository;
+    private final AdminOrderLogRepository orderLogoRepository;
+    private final EmailNotificationForStatusChange emailNotificationForStatusChange;
 
     @Override
     public Page<AdminOrder> getOrders(Pageable pageable) {
@@ -42,7 +47,23 @@ public class AdminOrderServiceImpl implements AdminOrderService {
 
     private void patchValues(AdminOrder adminOrder, Map<String, String> values) {
         if (values.get("orderStatus") != null) {
-            adminOrder.setOrderStatus(AdminOrderStatus.valueOf(values.get("orderStatus")));
+            processOrderStatusChange(adminOrder, values);
         }
+    }
+
+    private void processOrderStatusChange(AdminOrder adminOrder, Map<String, String> values) {
+        AdminOrderStatus oldStatus = adminOrder.getOrderStatus();
+        AdminOrderStatus newStatus = AdminOrderStatus.valueOf(values.get("orderStatus"));
+        adminOrder.setOrderStatus(newStatus);
+        logStatusChange(adminOrder.getId(), oldStatus, newStatus);
+        emailNotificationForStatusChange.sendEmailNotification(newStatus, adminOrder);
+    }
+
+    private void logStatusChange(Long orderId, AdminOrderStatus oldStatus, AdminOrderStatus newStatus) {
+        orderLogoRepository.save(AdminOrderLog.builder()
+                .orderId(orderId)
+                .created(LocalDateTime.now())
+                .note("Order status changed from: " + oldStatus.getValue() + " to: " + newStatus.getValue())
+                .build());
     }
 }
