@@ -12,4 +12,6 @@ public class AdminOrderStats {
     private List<Integer> labels;
     private List<Long> orders;
     private List<BigDecimal> sales;
+    private Long ordersNumber;
+    private BigDecimal salesAmount;
 }
