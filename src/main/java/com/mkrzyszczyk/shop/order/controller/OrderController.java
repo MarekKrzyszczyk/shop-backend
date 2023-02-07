@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +27,8 @@ public class OrderController {
   private final PaymentService paymentService;
 
   @PostMapping
-  public ResponseEntity<OrderSummary> placeOrder(@RequestBody @Valid OrderDto orderDto) {
-    return new ResponseEntity<>(orderService.placeOrder(orderDto), HttpStatus.CREATED);
+  public ResponseEntity<OrderSummary> placeOrder(@RequestBody @Valid OrderDto orderDto, @AuthenticationPrincipal Long userId) {
+    return new ResponseEntity<>(orderService.placeOrder(orderDto, userId), HttpStatus.CREATED);
   }
 
   @GetMapping("/initData")

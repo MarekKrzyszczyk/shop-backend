@@ -1,5 +1,6 @@
 package com.mkrzyszczyk.shop.security;
 
+import com.mkrzyszczyk.shop.security.model.UserRole;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +29,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager,
                                            UserDetailsService userDetailsService) throws Exception {
         http.authorizeRequests(authorize -> authorize
-                .antMatchers("/admin/**").authenticated()
+                .antMatchers("/admin/**").hasRole(UserRole.ROLE_ADMIN.getRole())
                 .anyRequest().permitAll());
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -39,11 +40,5 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService(DataSource dataSource) {
-
-        return new JdbcUserDetailsManager(dataSource);
     }
 }

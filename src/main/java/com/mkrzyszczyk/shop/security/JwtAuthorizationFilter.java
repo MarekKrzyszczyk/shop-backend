@@ -48,8 +48,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     .verify(token.replace(TOKEN_PREFIX, ""))
                     .getSubject();
             if (username != null) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
+                ShopUserDetails userDetails = (ShopUserDetails) userDetailsService.loadUserByUsername(username);
+                return new UsernamePasswordAuthenticationToken(userDetails.getId(), null, userDetails.getAuthorities());
             }
         }
         return null;

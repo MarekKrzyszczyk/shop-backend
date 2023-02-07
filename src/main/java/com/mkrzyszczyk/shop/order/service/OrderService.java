@@ -5,5 +5,5 @@ import com.mkrzyszczyk.shop.order.model.dto.OrderSummary;
 
 public interface OrderService {
 
-  OrderSummary placeOrder(OrderDto orderDto);
+  OrderSummary placeOrder(OrderDto orderDto, Long userId);
 }

@@ -32,11 +32,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public OrderSummary placeOrder(OrderDto orderDto) {
+    public OrderSummary placeOrder(OrderDto orderDto, Long userId) {
         Cart cart = cartRepository.findById(orderDto.getCartId()).orElseThrow();
         Shipment shipment = shipmentRepository.findById(orderDto.getShipmentId()).orElseThrow();
         Payment payment = paymentRepository.findById(orderDto.getPaymentId()).orElseThrow();
-        Order order = orderRepository.save(createNewOrder(orderDto, cart, shipment, payment));
+        Order order = orderRepository.save(createNewOrder(orderDto, cart, shipment, payment, userId));
         saveOrderRows(cart, order.getId(), shipment);
         clearOrderCart(cart);
         sendConfirmationEmail(order);
