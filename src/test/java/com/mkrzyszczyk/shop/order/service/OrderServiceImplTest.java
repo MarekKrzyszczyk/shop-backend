@@ -7,7 +7,7 @@ import com.mkrzyszczyk.shop.common.model.CartItem;
 import com.mkrzyszczyk.shop.common.model.Product;
 import com.mkrzyszczyk.shop.common.repository.CartItemRepository;
 import com.mkrzyszczyk.shop.common.repository.CartRepository;
-import com.mkrzyszczyk.shop.order.model.OrderStatus;
+import com.mkrzyszczyk.shop.common.model.OrderStatus;
 import com.mkrzyszczyk.shop.order.model.Payment;
 import com.mkrzyszczyk.shop.order.model.PaymentType;
 import com.mkrzyszczyk.shop.order.model.Shipment;

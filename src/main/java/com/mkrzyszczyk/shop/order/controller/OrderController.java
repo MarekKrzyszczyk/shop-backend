@@ -2,20 +2,19 @@ package com.mkrzyszczyk.shop.order.controller;
 
 import com.mkrzyszczyk.shop.order.model.dto.InitOrder;
 import com.mkrzyszczyk.shop.order.model.dto.OrderDto;
+import com.mkrzyszczyk.shop.order.model.dto.OrderListDto;
 import com.mkrzyszczyk.shop.order.model.dto.OrderSummary;
 import com.mkrzyszczyk.shop.order.service.OrderService;
 import com.mkrzyszczyk.shop.order.service.PaymentService;
 import com.mkrzyszczyk.shop.order.service.ShipmentService;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
@@ -38,5 +37,13 @@ public class OrderController {
             .payments(paymentService.getPayments())
             .build();
     return ResponseEntity.ok(initOrder);
+  }
+
+  @GetMapping
+  public List<OrderListDto> getOrders(@AuthenticationPrincipal Long userId) {
+    if (userId == null) {
+      throw new IllegalArgumentException("User is missing");
+    }
+    return orderService.getOrderForCustomer(userId);
   }
 }

@@ -4,8 +4,8 @@ import com.mkrzyszczyk.shop.admin.order.controller.dto.AdminInitDataDto;
 import com.mkrzyszczyk.shop.admin.order.controller.dto.AdminOrderDto;
 import com.mkrzyszczyk.shop.admin.order.controller.mapper.AdminOrderMapper;
 import com.mkrzyszczyk.shop.admin.order.model.AdminOrder;
-import com.mkrzyszczyk.shop.admin.order.model.AdminOrderStatus;
 import com.mkrzyszczyk.shop.admin.order.service.AdminOrderService;
+import com.mkrzyszczyk.shop.common.model.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +43,7 @@ public class AdminOrderController {
 
     private Map<String, String> createOrderStatusesMap() {
         Map<String, String> statuses = new HashMap<>();
-        for (AdminOrderStatus value : AdminOrderStatus.values()) {
+        for (OrderStatus value : OrderStatus.values()) {
             statuses.put(value.name(), value.getValue());
         }
         return statuses;

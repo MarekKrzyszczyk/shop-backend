@@ -2,6 +2,7 @@ package com.mkrzyszczyk.shop.order.service.mapper;
 
 import com.mkrzyszczyk.shop.common.model.Cart;
 import com.mkrzyszczyk.shop.common.model.CartItem;
+import com.mkrzyszczyk.shop.common.model.OrderStatus;
 import com.mkrzyszczyk.shop.order.model.*;
 import com.mkrzyszczyk.shop.order.model.dto.OrderDto;
 import com.mkrzyszczyk.shop.order.model.dto.OrderSummary;

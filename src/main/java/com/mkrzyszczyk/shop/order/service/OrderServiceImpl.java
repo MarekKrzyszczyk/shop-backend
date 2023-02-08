@@ -4,8 +4,11 @@ import com.mkrzyszczyk.shop.common.mail.EmailClientService;
 import com.mkrzyszczyk.shop.common.model.Cart;
 import com.mkrzyszczyk.shop.common.repository.CartItemRepository;
 import com.mkrzyszczyk.shop.common.repository.CartRepository;
-import com.mkrzyszczyk.shop.order.model.*;
+import com.mkrzyszczyk.shop.order.model.Order;
+import com.mkrzyszczyk.shop.order.model.Payment;
+import com.mkrzyszczyk.shop.order.model.Shipment;
 import com.mkrzyszczyk.shop.order.model.dto.OrderDto;
+import com.mkrzyszczyk.shop.order.model.dto.OrderListDto;
 import com.mkrzyszczyk.shop.order.model.dto.OrderSummary;
 import com.mkrzyszczyk.shop.order.repository.OrderRepository;
 import com.mkrzyszczyk.shop.order.repository.OrderRowRepository;
@@ -15,6 +18,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+import static com.mkrzyszczyk.shop.order.service.mapper.OrderDtoMapper.mapToOrderListDto;
 import static com.mkrzyszczyk.shop.order.service.mapper.OrderEmailMessageMapper.createEmailMessage;
 import static com.mkrzyszczyk.shop.order.service.mapper.OrderMapper.*;
 
@@ -41,6 +47,11 @@ public class OrderServiceImpl implements OrderService {
         clearOrderCart(cart);
         sendConfirmationEmail(order);
         return createOrderSummary(payment, order);
+    }
+
+    @Override
+    public List<OrderListDto> getOrderForCustomer(Long userId) {
+        return mapToOrderListDto(orderRepository.findByUserId(userId));
     }
 
     private void sendConfirmationEmail(Order order) {

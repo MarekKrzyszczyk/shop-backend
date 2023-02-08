@@ -2,9 +2,9 @@ package com.mkrzyszczyk.shop.admin.order.service;
 
 import com.mkrzyszczyk.shop.admin.order.model.AdminOrder;
 import com.mkrzyszczyk.shop.admin.order.model.AdminOrderLog;
-import com.mkrzyszczyk.shop.admin.order.model.AdminOrderStatus;
 import com.mkrzyszczyk.shop.admin.order.repository.AdminOrderLogRepository;
 import com.mkrzyszczyk.shop.admin.order.repository.AdminOrderRepository;
+import com.mkrzyszczyk.shop.common.model.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -52,8 +52,8 @@ public class AdminOrderServiceImpl implements AdminOrderService {
     }
 
     private void processOrderStatusChange(AdminOrder adminOrder, Map<String, String> values) {
-        AdminOrderStatus oldStatus = adminOrder.getOrderStatus();
-        AdminOrderStatus newStatus = AdminOrderStatus.valueOf(values.get("orderStatus"));
+        OrderStatus oldStatus = adminOrder.getOrderStatus();
+        OrderStatus newStatus = OrderStatus.valueOf(values.get("orderStatus"));
         if (oldStatus.equals(newStatus)) {
             return;
         }
@@ -62,7 +62,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         emailNotificationForStatusChange.sendEmailNotification(newStatus, adminOrder);
     }
 
-    private void logStatusChange(Long orderId, AdminOrderStatus oldStatus, AdminOrderStatus newStatus) {
+    private void logStatusChange(Long orderId, OrderStatus oldStatus, OrderStatus newStatus) {
         orderLogoRepository.save(AdminOrderLog.builder()
                 .orderId(orderId)
                 .created(LocalDateTime.now())

@@ -1,9 +1,9 @@
 package com.mkrzyszczyk.shop.admin.order.service;
 
 import com.mkrzyszczyk.shop.admin.order.model.AdminOrder;
-import com.mkrzyszczyk.shop.admin.order.model.AdminOrderStatus;
 import com.mkrzyszczyk.shop.admin.order.model.dto.AdminOrderStats;
 import com.mkrzyszczyk.shop.admin.order.repository.AdminOrderRepository;
+import com.mkrzyszczyk.shop.common.model.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class AdminOrderStatsServiceImpl implements AdminOrderStatsService {
         LocalDateTime from = LocalDateTime.now().withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0);
         LocalDateTime to = LocalDateTime.now();
         List<AdminOrder> adminOrders = adminOrderRepository.findAllByPlacementDateIsBetweenAndOrderStatus(
-                from, to, AdminOrderStatus.COMPLETED);
+                from, to, OrderStatus.COMPLETED);
 
         TreeMap<Integer, AdminOrderStatsValue> result =
                 IntStream.rangeClosed(from.getDayOfMonth(), to.getDayOfMonth())
