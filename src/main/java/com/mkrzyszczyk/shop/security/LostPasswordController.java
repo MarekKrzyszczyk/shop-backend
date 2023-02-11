@@ -1,5 +1,6 @@
 package com.mkrzyszczyk.shop.security;
 
+import com.mkrzyszczyk.shop.security.model.dto.ChangePassword;
 import com.mkrzyszczyk.shop.security.model.dto.EmailObject;
 import com.mkrzyszczyk.shop.security.service.LostPasswordService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,6 @@ public class LostPasswordController {
 
     @PostMapping("/changePassword")
     public void changePassword(@RequestBody ChangePassword changePassword) {
+        lostPasswordService.changePassword(changePassword);
     }
-
 }

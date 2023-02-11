@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,15 +21,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class LoginController {
 
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
-    private long expirationTime;
-    private String secret;
+    private final long expirationTime;
+    private final String secret;
 
     public LoginController(AuthenticationManager authenticationManager,
                            UserRepository userRepository,
@@ -53,7 +51,7 @@ public class LoginController {
             throw new IllegalArgumentException("Passwords aren't identical");
         }
         if (userRepository.existsByUsername(registerCredentials.getUsername())) {
-            throw new IllegalArgumentException("This user already exists!");
+            throw new IllegalArgumentException("Given user already exists");
         }
         userRepository.save(User.builder()
                 .username(registerCredentials.getUsername())
@@ -65,18 +63,22 @@ public class LoginController {
     }
 
     private Token authenticate(String username, String password) {
+        User user = userRepository.findByUsername(username).orElseThrow();
+
         Authentication authenticate = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password));
-
+                new UsernamePasswordAuthenticationToken(user.getId(), password)
+        );
         ShopUserDetails principal = (ShopUserDetails) authenticate.getPrincipal();
-
-        boolean adminAccess = principal.getAuthorities().stream()
-                .anyMatch(authority -> authority.getAuthority().equals(UserRole.ROLE_ADMIN.name()));
-
-        return new Token(JWT.create()
+        String token = JWT.create()
                 .withSubject(String.valueOf(principal.getId()))
                 .withExpiresAt(new Date(System.currentTimeMillis() + expirationTime))
-                .sign(Algorithm.HMAC256(secret)), adminAccess);
+                .sign(Algorithm.HMAC256(secret));
+        return new Token(token, principal.getAuthorities().stream()
+                .map(grantedAuthority -> grantedAuthority.getAuthority())
+                .filter(s -> UserRole.ROLE_ADMIN.name().equals(s))
+                .map(s -> true)
+                .findFirst()
+                .orElse(false));
     }
 
     @Getter
